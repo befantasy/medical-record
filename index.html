@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>潘建成 - 全程诊疗档案</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <style>
+        :root {
+            --primary: #0284c7; /* 深天蓝 */
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-light: #64748b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --purple: #8b5cf6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 16px;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* 顶部卡片 */
+        .header-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid var(--primary);
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+        .patient-name { font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin: 0; }
+        .patient-meta { color: var(--text-light); font-size: 0.95rem; margin-top: 5px; }
+        
+        .tag-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .tag-dx { background: #fee2e2; color: #991b1b; } /* 诊断 */
+        .tag-rx { background: #e0e7ff; color: #3730a3; } /* 治疗 */
+        .tag-his { background: #f3f4f6; color: #374151; } /* 病史 */
+
+        /* 既往史小方块 */
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+        }
+        .hist-item { font-size: 0.9rem; }
+        .hist-label { color: var(--text-light); font-size: 0.8rem; }
+
+        /* 通用卡片 */
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 18px;
+            background: var(--primary);
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+
+        /* 治疗时间轴 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #e2e8f0;
+        }
+        .tl-item { margin-bottom: 25px; position: relative; }
+        .tl-item::after {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+        }
+        .tl-date { font-weight: 700; color: var(--text-main); font-size: 1rem; }
+        .tl-content { background: #f8fafc; padding: 10px 15px; border-radius: 8px; margin-top: 5px; border: 1px solid #e2e8f0; }
+        .tl-tag { display: inline-block; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px; }
+        
+        /* 影像学对比表格 */
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .img-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .img-date { font-weight: bold; color: var(--primary); margin-bottom: 5px; }
+        .img-desc { font-size: 0.9rem; color: #334155; }
+        .key-point { color: var(--danger); font-weight: 600; }
+
+        /* 图表区 */
+        .charts-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+        .chart-box { height: 320px; position: relative; }
+
+        /* 滚动表格 */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; white-space: nowrap; }
+        th, td { padding: 8px 12px; text-align: center; border-bottom: 1px solid #eee; }
+        th { background: #f1f5f9; font-weight: 600; position: sticky; left: 0; z-index: 10; }
+        tr:nth-child(even) { background-color: #fcfcfc; }
+        .col-key { background-color: #eff6ff; font-weight: bold; color: var(--primary); }
+
+        /* 咨询重点 */
+        .qa-list li { margin-bottom: 12px; }
+        .qa-tag { background: var(--warning); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px; }
+
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; }
+            .charts-wrapper { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 1. 患者基本信息 -->
+    <div class="header-card">
+        <div class="header-top">
+            <div>
+                <h1 class="patient-name">潘建成 <span style="font-size:1.2rem; font-weight:400; color:#64748b;">(男, 65岁)</span></h1>
+                <div class="patient-meta">最近复查：2026-01-29 (术后3周) | BMI: 23.8</div>
+            </div>
+            <div class="tag-group">
+                <span class="tag tag-dx">原发性肝癌 (CNLC IIIa期)</span>
+                <span class="tag tag-dx">S8巨块型</span>
+                <span class="tag tag-dx">门脉癌栓</span>
+                <span class="tag tag-rx">钇90术后</span>
+                <span class="tag tag-rx">靶向治疗中</span>
+            </div>
+        </div>
+        
+        <!-- 既往史 -->
+        <div class="history-grid">
+            <div class="hist-item">
+                <div class="hist-label">乙肝病史</div>
+                <div>30年 (小三阳)</div>
+                <div style="font-size:0.8rem; color:var(--success)">TAF治疗中, DNA&lt;30</div>
+            </div>
+            <div class="hist-item">
+                <div class="hist-label">糖尿病</div>
+                <div>22年</div>
+                <div style="font-size:0.8rem; color:var(--text-light)">胰岛素+二甲双胍</div>
+            </div>
+            <div class="hist-item">
+                <div class="hist-label">高血压</div>
+                <div>20年</div>
+                <div style="font-size:0.8rem; color:var(--text-light)">氨氯地平 (控制可)</div>
+            </div>
+            <div class="hist-item">
+                <div class="hist-label">其他</div>
+                <div>胆囊结石, 左肾囊肿</div>
+                <div>前列腺增生</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 治疗全过程时间轴 -->
+    <div class="section-card">
+        <div class="section-title">关键治疗时间轴</div>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-date">2026.01.29 (术后3周)</div>
+                <div class="tl-content">
+                    <span class="tl-tag" style="background:#d1fae5; color:#065f46">复查</span>
+                    <strong>PIVKA-II 降至 45.2 (接近正常)</strong>；AFP 降至 22.5。淋巴细胞触底微升(0.19)，腹泻好转。
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2026.01.22 (术后2周)</div>
+                <div class="tl-content">
+                    <span class="tl-tag" style="background:#fee2e2; color:#991b1b">警报</span>
+                    淋巴细胞最低谷 (0.13)，出现水样腹泻。PIVKA-II 暴跌至 124。
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2026.01.08 (T0)</div>
+                <div class="tl-content">
+                    <span class="tl-tag tag-rx">关键手术</span>
+                    <strong>钇90微球介入治疗</strong> (S8段, 3 GBq)。术后SPECT显示肿瘤浓聚良好，无异位栓塞。
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2025.12.26</div>
+                <div class="tl-content">
+                    <span class="tl-tag tag-rx">启动药物</span>
+                    开始服用 <strong>仑伐替尼 (8mg Qd)</strong>。
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2025.12.05</div>
+                <div class="tl-content">
+                    <span class="tl-tag tag-dx">确诊</span>
+                    增强MRI确诊：肝顶巨块(52mm) + 门脉右后支癌栓 + S1结节。
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2025.09.08</div>
+                <div class="tl-content">
+                    <span class="tl-tag tag-his">预警</span>
+                    体检发现 AFP 升高 (233)，超声提示结节 (未进一步处理)。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 数据图表区 -->
+    <div class="section-card">
+        <div class="section-title">关键指标趋势分析</div>
+        <div class="charts-wrapper">
+            <!-- 肿瘤标志物 -->
+            <div class="chart-box">
+                <canvas id="tumorChart"></canvas>
+            </div>
+            <!-- 免疫状态 -->
+            <div class="chart-box">
+                <canvas id="immuneChart"></canvas>
+            </div>
+            <!-- 肝功能 -->
+            <div class="chart-box">
+                <canvas id="liverChart"></canvas>
+            </div>
+            <!-- 血小板 -->
+            <div class="chart-box">
+                <canvas id="pltChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 影像学对比 -->
+    <div class="section-card">
+        <div class="section-title">关键影像学演变</div>
+        <div class="img-grid">
+            <div class="img-box">
+                <div class="img-date">2025.12.05 (外院增强MRI)</div>
+                <div class="img-desc">
+                    1. 肝顶肿块 <span class="key-point">52mm</span>。<br>
+                    2. <span class="key-point">局部侵犯门静脉右后支</span>。<br>
+                    3. 尾状叶(S1) 9mm 结节。<br>
+                    4. 腹膜后淋巴结肿大。
+                </div>
+            </div>
+            <div class="img-box">
+                <div class="img-date">2025.12.30 (术前PET-CT)</div>
+                <div class="img-desc">
+                    1. S8肿块 FDG高代谢 (SUVmax 8.3)。<br>
+                    2. S1结节 SUVmax 3.2 (<span class="key-point">疑似活性病灶</span>)。<br>
+                    3. 纵隔4R淋巴结 SUV 3.9 (反应性增生)。<br>
+                    4. 膀胱1cm结节 (未定性)。
+                </div>
+            </div>
+            <div class="img-box" style="background:#f0f9ff; border-color:#2563eb;">
+                <div class="img-date">2026.01.29 (治疗反应)</div>
+                <div class="img-desc">
+                    <strong>生物学反应：</strong> PIVKA-II 降至 45.2，AFP 降至 22.5。<br>
+                    <strong>推断：</strong> 肿瘤活性已被大幅抑制，处于坏死吸收期。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 详细数据表 -->
+    <div class="section-card">
+        <div class="section-title">全量检验数据表 (可左右滑动)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="min-width:120px;">项目</th>
+                        <th>参考值</th>
+                        <th>25.09.08<br><small>基线</small></th>
+                        <th>25.12.03<br><small>确诊</small></th>
+                        <th>25.12.26<br><small>用药前</small></th>
+                        <th class="col-key">26.01.08<br><small>T0手术</small></th>
+                        <th>26.01.12<br><small>术后1周</small></th>
+                        <th>26.01.22<br><small>术后2周</small></th>
+                        <th class="col-key">26.01.29<br><small>术后3周</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight:bold; color:var(--danger)">PIVKA-II</td>
+                        <td>&lt;40</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>6400</td>
+                        <td>9862</td>
+                        <td>2239</td>
+                        <td>124</td>
+                        <td style="font-weight:bold; color:var(--success)">45.2</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold; color:var(--primary)">AFP</td>
+                        <td>0-7</td>
+                        <td>233</td>
+                        <td>398</td>
+                        <td>437</td>
+                        <td>239</td>
+                        <td>134</td>
+                        <td>49</td>
+                        <td style="font-weight:bold; color:var(--success)">22.5</td>
+                    </tr>
+                    <tr>
+                        <td>AFP-L3%</td>
+                        <td>&lt;10%</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>38.8%</td>
+                        <td>32.4%</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold; color:var(--warning)">淋巴细胞#</td>
+                        <td>1.1-3.2</td>
+                        <td>0.66</td>
+                        <td>0.45</td>
+                        <td>0.59</td>
+                        <td>0.27</td>
+                        <td>0.20</td>
+                        <td style="color:red">0.13</td>
+                        <td>0.19</td>
+                    </tr>
+                    <tr>
+                        <td>中性粒细胞#</td>
+                        <td>1.8-6.3</td>
+                        <td>1.68</td>
+                        <td>1.87</td>
+                        <td>1.37</td>
+                        <td>2.25</td>
+                        <td>2.69</td>
+                        <td>2.09</td>
+                        <td>1.93</td>
+                    </tr>
+                    <tr>
+                        <td>血小板 (PLT)</td>
+                        <td>125-350</td>
+                        <td>108</td>
+                        <td>137</td>
+                        <td>121</td>
+                        <td>139</td>
+                        <td>159</td>
+                        <td>140</td>
+                        <td>106</td>
+                    </tr>
+                    <tr>
+                        <td>ALT (谷丙)</td>
+                        <td>9-60</td>
+                        <td>18</td>
+                        <td>15</td>
+                        <td>20</td>
+                        <td>15.5</td>
+                        <td>25</td>
+                        <td>25</td>
+                        <td>26</td>
+                    </tr>
+                    <tr>
+                        <td>TBil (总胆)</td>
+                        <td>5-28</td>
+                        <td>21.7</td>
+                        <td>13.5</td>
+                        <td>14.9</td>
+                        <td>14.5</td>
+                        <td>24.0</td>
+                        <td>17.2</td>
+                        <td>24.1</td>
+                    </tr>
+                    <tr>
+                        <td>ALB (白蛋白)</td>
+                        <td>40-55</td>
+                        <td>50.8</td>
+                        <td>52.5</td>
+                        <td>46.1</td>
+                        <td>44.2</td>
+                        <td>44.8</td>
+                        <td>45.4</td>
+                        <td>49.1</td>
+                    </tr>
+                    <tr>
+                        <td>HBV-DNA</td>
+                        <td>&lt;30</td>
+                        <td>-</td>
+                        <td>100</td>
+                        <td>134</td>
+                        <td>-</td>
+                        <td>&lt;30</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 6. 咨询清单 -->
+    <div class="card" style="border-left: 4px solid var(--purple);">
+        <div class="section-title" style="color:var(--purple); margin-bottom:10px;">今日复查咨询清单</div>
+        <ul class="qa-list" style="padding-left:20px;">
+            <li><span class="qa-tag">免疫</span> 淋巴细胞仅0.19，是否需要加大<strong>胸腺法新</strong>剂量（每日1次）？</li>
+            <li><span class="qa-tag">治疗</span> 计划进行<strong>异体 NKT/γδT 细胞回输</strong>（家属/第三方），请评估最佳介入时间（是现在还是等PD-1前？）。</li>
+            <li><span class="qa-tag">用药</span> <strong>PD-1 (替雷利珠单抗)</strong> 的启动标准是什么？（淋巴细胞需达到多少？0.5还是0.8？）</li>
+            <li><span class="qa-tag">安全</span> 血小板呈下降趋势 (106)，如果跌破75，仑伐替尼是否减量？</li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    const dates = ['25.09.08', '25.12.03', '25.12.26', '26.01.08', '26.01.12', '26.01.22', '26.01.29'];
+
+    // 1. 肿瘤标志物 (Log Scale for PIVKA)
+    new Chart(document.getElementById('tumorChart'), {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'PIVKA-II (右轴-对数)',
+                    data: [null, null, 6400, 9862, 2239, 124, 45.2],
+                    borderColor: '#ef4444',
+                    backgroundColor: '#ef4444',
+                    yAxisID: 'y1',
+                    tension: 0.2
+                },
+                {
+                    label: 'AFP (左轴)',
+                    data: [233, 398, 437, 239, 134, 49, 22.5],
+                    borderColor: '#2563eb',
+                    backgroundColor: '#2563eb',
+                    yAxisID: 'y',
+                    tension: 0.2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { type: 'linear', position: 'left', title: {display:true, text:'AFP'} },
+                y1: { type: 'logarithmic', position: 'right', title: {display:true, text:'PIVKA-II'}, grid: {drawOnChartArea: false} }
+            }
+        }
+    });
+
+    // 2. 免疫 (淋巴 vs 中性)
+    new Chart(document.getElementById('immuneChart'), {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: '淋巴细胞 (#)',
+                    data: [0.66, 0.45, 0.59, 0.27, 0.20, 0.13, 0.19],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: '中性粒细胞 (#)',
+                    data: [1.68, 1.87, 1.37, 2.25, 2.69, 2.09, 1.93],
+                    borderColor: '#f59e0b',
+                    borderDash: [5,5],
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            yMin: 0.8,
+                            yMax: 0.8,
+                            borderColor: 'gray',
+                            borderWidth: 1,
+                            label: { content: 'PD-1启动警戒线', enabled: true, position: 'end' }
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // 3. 肝功能
+    new Chart(document.getElementById('liverChart'), {
+        type: 'bar',
+        data: {
+            labels: dates,
+            datasets: [
+                { label: 'ALT', data: [18, 15, 20, 15.5, 25, 25, 26], backgroundColor: '#3b82f6' },
+                { label: 'AST', data: [24, 19, 19.3, 35.8, 42, 30, 29], backgroundColor: '#93c5fd' },
+                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1], borderColor: '#8b5cf6' }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // 4. 血小板
+    new Chart(document.getElementById('pltChart'), {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: '血小板 (PLT)',
+                data: [108, 137, 121, 139, 159, 140, 106],
+                borderColor: '#ec4899',
+                backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                annotation: {
+                    annotations: {
+                        line1: { type: 'line', yMin: 75, yMax: 75, borderColor: 'red', borderWidth: 2, label: { content: '减量警戒线', enabled: true } }
+                    }
+                }
+            },
+            scales: { y: { beginAtZero: false, min: 0 } }
+        }
+    });
+</script>
+
+</body>
+</html>
