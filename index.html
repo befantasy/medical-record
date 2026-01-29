@@ -87,6 +87,69 @@
             border-radius: 3px;
         }
 
+        /* 药品卡片样式 (新增) */
+        .med-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .med-box {
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .med-box:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .med-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+        /* 药物分类颜色 */
+        .med-tumor { background: #f0f9ff; border-color: #bae6fd; }
+        .med-tumor::before { background: var(--primary); }
+        
+        .med-virus { background: #f0fdf4; border-color: #bbf7d0; }
+        .med-virus::before { background: var(--success); }
+        
+        .med-chronic { background: #fffbeb; border-color: #fde68a; }
+        .med-chronic::before { background: var(--warning); }
+        
+        /* 新增：免疫药物样式 */
+        .med-immune { background: #f3e8ff; border-color: #d8b4fe; }
+        .med-immune::before { background: var(--purple); }
+
+        .med-name { font-weight: 700; font-size: 1.1rem; color: var(--text-main); display: flex; align-items: center; justify-content: space-between;}
+        .med-desc { font-size: 0.85rem; color: var(--text-light); margin-top: 2px; margin-bottom: 10px; }
+        .med-tag { 
+            display: inline-block; 
+            font-size: 0.75rem; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            background: rgba(255,255,255,0.8); 
+            border: 1px solid rgba(0,0,0,0.05);
+            font-weight: 600;
+        }
+        .med-tumor .med-tag { color: var(--primary); }
+        .med-virus .med-tag { color: var(--success); }
+        .med-chronic .med-tag { color: #b45309; }
+        .med-immune .med-tag { color: var(--purple); }
+        
+        .med-dose { 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            margin-top: 8px; 
+            padding-top: 8px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+            color: var(--text-main);
+        }
+
         /* 治疗时间轴 */
         .timeline {
             position: relative;
@@ -200,22 +263,67 @@
             <div class="hist-item">
                 <div class="hist-label">乙肝病史</div>
                 <div>30年 (小三阳)</div>
-                <div style="font-size:0.8rem; color:var(--success)">TAF治疗中, DNA&lt;30</div>
+                <div style="font-size:0.8rem; color:var(--success)">TAF治疗中, HBV DNA&lt;30</div>
             </div>
             <div class="hist-item">
                 <div class="hist-label">糖尿病</div>
                 <div>22年</div>
-                <div style="font-size:0.8rem; color:var(--text-light)">胰岛素+二甲双胍</div>
+                <div style="font-size:0.8rem; color:var(--text-light)">注射胰岛素</div>
             </div>
             <div class="hist-item">
                 <div class="hist-label">高血压</div>
                 <div>20年</div>
-                <div style="font-size:0.8rem; color:var(--text-light)">氨氯地平 (控制可)</div>
+                <div style="font-size:0.8rem; color:var(--text-light)">控制尚可</div>
             </div>
             <div class="hist-item">
                 <div class="hist-label">其他</div>
                 <div>胆囊结石, 左肾囊肿</div>
                 <div>前列腺增生</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1.5 当前用药方案 (新增) -->
+    <div class="section-card">
+        <div class="section-title">当前用药方案</div>
+        <div class="med-grid">
+            <!-- 肿瘤治疗 -->
+            <div class="med-box med-tumor">
+                <div class="med-name">仑伐替尼 <span style="font-size:1.2rem">💊</span></div>
+                <div class="med-desc">Lenvatinib (靶向治疗)</div>
+                <div class="med-tag">核心抗肿瘤</div>
+                <div class="med-dose">12mg (3粒) / 每日1次</div>
+            </div>
+            
+            <!-- 免疫调节 -->
+            <div class="med-box med-immune">
+                <div class="med-name">胸腺法新 <span style="font-size:1.2rem">🛡️</span></div>
+                <div class="med-desc">Thymalfasin (日达仙)</div>
+                <div class="med-tag">免疫调节</div>
+                <div class="med-dose">1.6mg / 每2天</div>
+            </div>
+
+            <!-- 病毒控制 -->
+            <div class="med-box med-virus">
+                <div class="med-name">丙酚替诺福韦 <span style="font-size:1.2rem">🦠</span></div>
+                <div class="med-desc">TAF (韦立得)</div>
+                <div class="med-tag">乙肝抗病毒</div>
+                <div class="med-dose">25mg / 每日1次</div>
+            </div>
+
+            <!-- 慢病管理 -->
+            <div class="med-box med-chronic">
+                <div class="med-name">门冬胰岛素30 <span style="font-size:1.2rem">💉</span></div>
+                <div class="med-desc">Insulin Aspart 30 (诺和锐30)</div>
+                <div class="med-tag">糖尿病控制</div>
+                <div class="med-dose">皮下注射 (遵医嘱)</div>
+            </div>
+
+            <div class="med-box med-chronic">
+                <div class="med-name">氨氯地平 <span style="font-size:1.2rem">❤️</span></div>
+                <div class="med-desc">Amlodipine (络活喜)</div>
+                <div class="med-tag">降血压</div>
+                <div class="med-dose">5mg / 每日1次</div>
             </div>
         </div>
     </div>
@@ -238,7 +346,6 @@
                     淋巴细胞最低谷 (0.13)，出现水样腹泻。PIVKA-II 暴跌至 124。
                 </div>
             </div>
-            <!-- 新增：术后恢复用药 -->
             <div class="tl-item">
                 <div class="tl-date">2026.01.15 (术后1周)</div>
                 <div class="tl-content">
@@ -253,7 +360,6 @@
                     <strong>钇90微球介入治疗</strong> (S8段/S1段, 3 GBq)。术后SPECT显示肿瘤浓聚良好，无异位栓塞。
                 </div>
             </div>
-            <!-- 新增：术前停药 -->
             <div class="tl-item">
                 <div class="tl-date">2026.01.05 (术前3天)</div>
                 <div class="tl-content">
@@ -285,7 +391,7 @@
         </div>
     </div>
 
-    <!-- 2.5 核心战果看板 (新增) -->
+    <!-- 2.5 核心战果看板 -->
     <div class="section-card">
         <div class="section-title" style="flex-wrap: wrap;">
             <span>核心指标追踪 <small style="color:var(--text-light); font-weight:400; font-size: 0.9rem;">(术后3周 vs 峰值)</small></span>
