@@ -109,6 +109,24 @@
         .tl-content { background: #f8fafc; padding: 10px 15px; border-radius: 8px; margin-top: 5px; border: 1px solid #e2e8f0; }
         .tl-tag { display: inline-block; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px; }
         
+        /* 核心战果看板样式 */
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .stat-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .stat-label { font-size: 0.85rem; color: var(--text-light); margin-bottom: 4px; }
+        .stat-val { font-size: 1.8rem; font-weight: 800; line-height: 1.2; margin: 8px 0; }
+        .trend-down { color: var(--success); }
+        .trend-bad { color: var(--danger); }
+
         /* 影像学对比表格 */
         .img-grid {
             display: grid;
@@ -217,11 +235,27 @@
                     淋巴细胞最低谷 (0.13)，出现水样腹泻。PIVKA-II 暴跌至 124。
                 </div>
             </div>
+            <!-- 新增：术后恢复用药 -->
+            <div class="tl-item">
+                <div class="tl-date">2026.01.15 (术后1周)</div>
+                <div class="tl-content">
+                    <span class="tl-tag" style="background:#e0e7ff; color:#3730a3">恢复用药</span>
+                    术后恢复服用 <strong>仑伐替尼 (8mg Qd)</strong>。
+                </div>
+            </div>
             <div class="tl-item">
                 <div class="tl-date">2026.01.08 (T0)</div>
                 <div class="tl-content">
                     <span class="tl-tag tag-rx">关键手术</span>
                     <strong>钇90微球介入治疗</strong> (S8段, 3 GBq)。术后SPECT显示肿瘤浓聚良好，无异位栓塞。
+                </div>
+            </div>
+            <!-- 新增：术前停药 -->
+            <div class="tl-item">
+                <div class="tl-date">2026.01.05 (术前3天)</div>
+                <div class="tl-content">
+                    <span class="tl-tag" style="background:#f3f4f6; color:#374151">停药</span>
+                    为配合介入手术，暂停服用仑伐替尼。
                 </div>
             </div>
             <div class="tl-item">
@@ -244,6 +278,40 @@
                     <span class="tl-tag tag-his">预警</span>
                     体检发现 AFP 升高 (233)，超声提示结节 (未进一步处理)。
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2.5 核心战果看板 (新增) -->
+    <div class="section-card">
+        <div class="section-title" style="flex-wrap: wrap;">
+            <span>核心指标追踪 <small style="color:var(--text-light); font-weight:400; font-size: 0.9rem;">(术后3周 vs 峰值)</small></span>
+            <span style="font-size:0.85rem; color:var(--text-light); font-weight:400; margin-left: auto;">目标：肿瘤降期/手术转化</span>
+        </div>
+        <div class="highlight-grid">
+            <div class="stat-box">
+                <div class="stat-label">PIVKA-II (异常凝血酶原)</div>
+                <div class="stat-val trend-down">45.2</div>
+                <div class="stat-label">↓99.5% (峰值: 9862)</div>
+                <div class="stat-label" style="color:var(--success)">接近正常(&lt;40)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">AFP (甲胎蛋白)</div>
+                <div class="stat-val trend-down">22.53</div>
+                <div class="stat-label">↓94.8% (峰值: 437)</div>
+                <div class="stat-label" style="color:var(--success)">接近正常(&lt;7)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">淋巴细胞绝对值</div>
+                <div class="stat-val trend-bad">0.19</div>
+                <div class="stat-label">极低 (最低0.13)</div>
+                <div class="stat-label" style="color:var(--warning)">回升趋势中 ↗</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">血小板 (PLT)</div>
+                <div class="stat-val trend-bad">106</div>
+                <div class="stat-label">偏低 (基线: 140)</div>
+                <div class="stat-label">监测出血风险</div>
             </div>
         </div>
     </div>
