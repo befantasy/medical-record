@@ -461,7 +461,7 @@
                     <canvas id="tumorChart"></canvas>
                 </div>
             </div>
-            
+
             <!-- 肝功能 -->
             <div class="chart-box">
                 <div class="canvas-holder">
@@ -725,9 +725,9 @@
         data: {
             labels: dates,
             datasets: [
-                { label: 'ALT', data: [18, 15, 20, 15.5, 25, 25, 26], backgroundColor: '#3b82f6', barPercentage: 0.9, categoryPercentage: 0.55 },
-                { label: 'AST', data: [24, 19, 19.3, 35.8, 42, 30, 29], backgroundColor: '#93c5fd', barPercentage: 0.9, categoryPercentage: 0.55},
-                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1], borderColor: '#8b5cf6' }
+                { label: 'ALT', data: [18, 15, 20, 15.5, 25, 25, 26], backgroundColor: '#3b82f6', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
+                { label: 'AST', data: [24, 19, 19.3, 35.8, 42, 30, 29], backgroundColor: '#93c5fd', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
+                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1], borderColor: '#8b5cf6', order: 0 }
             ]
         },
         options: { responsive: true, maintainAspectRatio: false }
