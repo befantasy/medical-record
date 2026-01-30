@@ -87,7 +87,7 @@
             border-radius: 3px;
         }
 
-        /* 药品卡片样式 (新增) */
+        /* 药品卡片样式 */
         .med-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -111,7 +111,6 @@
             width: 5px;
             height: 100%;
         }
-        /* 药物分类颜色 */
         .med-tumor { background: #f0f9ff; border-color: #bae6fd; }
         .med-tumor::before { background: var(--primary); }
         
@@ -121,7 +120,6 @@
         .med-chronic { background: #fffbeb; border-color: #fde68a; }
         .med-chronic::before { background: var(--warning); }
         
-        /* 新增：免疫药物样式 */
         .med-immune { background: #f3e8ff; border-color: #d8b4fe; }
         .med-immune::before { background: var(--purple); }
 
@@ -175,8 +173,8 @@
         /* 核心战果看板样式 */
         .highlight-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
         }
         .stat-box {
             background: #f8fafc;
@@ -186,7 +184,7 @@
             text-align: center;
         }
         .stat-label { font-size: 0.85rem; color: var(--text-light); margin-bottom: 4px; }
-        .stat-val { font-size: 1.8rem; font-weight: 800; line-height: 1.2; margin: 8px 0; }
+        .stat-val { font-size: 1.6rem; font-weight: 800; line-height: 1.2; margin: 8px 0; }
         .trend-down { color: var(--success); }
         .trend-bad { color: var(--danger); }
 
@@ -211,7 +209,7 @@
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             gap: 20px;
         }
-        .chart-box { height: 320px; position: relative; }
+        .chart-box { height: 350px; position: relative; }
 
         /* 滚动表格 */
         .table-container {
@@ -225,7 +223,6 @@
         tr:nth-child(even) { background-color: #fcfcfc; }
         .col-key { background-color: #eff6ff; font-weight: bold; color: var(--primary); }
         
-        /* 异常数值样式 */
         .abnormal { color: var(--danger); font-weight: bold; }
 
         /* 咨询重点 */
@@ -258,7 +255,6 @@
             </div>
         </div>
         
-        <!-- 既往史 -->
         <div class="history-grid">
             <div class="hist-item">
                 <div class="hist-label">乙肝病史</div>
@@ -283,11 +279,10 @@
         </div>
     </div>
 
-    <!-- 1.5 当前用药方案 (新增) -->
+    <!-- 1.5 当前用药方案 -->
     <div class="section-card">
         <div class="section-title">当前用药方案</div>
         <div class="med-grid">
-            <!-- 肿瘤治疗 -->
             <div class="med-box med-tumor">
                 <div class="med-name">仑伐替尼 <span style="font-size:1.2rem">💊</span></div>
                 <div class="med-desc">Lenvatinib (靶向治疗)</div>
@@ -295,7 +290,6 @@
                 <div class="med-dose">12mg (3粒) / 每日1次</div>
             </div>
             
-            <!-- 免疫调节 -->
             <div class="med-box med-immune">
                 <div class="med-name">胸腺法新 <span style="font-size:1.2rem">🛡️</span></div>
                 <div class="med-desc">Thymalfasin (日达仙)</div>
@@ -303,7 +297,6 @@
                 <div class="med-dose">1.6mg / 每2天</div>
             </div>
 
-            <!-- 病毒控制 -->
             <div class="med-box med-virus">
                 <div class="med-name">丙酚替诺福韦 <span style="font-size:1.2rem">🦠</span></div>
                 <div class="med-desc">TAF (韦立得)</div>
@@ -311,7 +304,6 @@
                 <div class="med-dose">25mg / 每日1次</div>
             </div>
 
-            <!-- 慢病管理 -->
             <div class="med-box med-chronic">
                 <div class="med-name">门冬胰岛素30 <span style="font-size:1.2rem">💉</span></div>
                 <div class="med-desc">Insulin Aspart 30 (诺和锐30)</div>
@@ -378,7 +370,7 @@
                 <div class="tl-date">2025.12.05</div>
                 <div class="tl-content">
                     <span class="tl-tag tag-dx">确诊</span>
-                    增强MRI确诊：肝顶S8(52mm) + 门脉右后支癌栓(应为右前上背侧枝) + S1结节。
+                    增强MRI确诊：肝顶S8(52mm) + 门脉右后支癌栓 + S1结节。
                 </div>
             </div>
             <div class="tl-item">
@@ -402,19 +394,25 @@
                 <div class="stat-label">PIVKA-II (异常凝血酶原)</div>
                 <div class="stat-val trend-down">45.2</div>
                 <div class="stat-label">↓99.5% (峰值: 9862)</div>
-                <div class="stat-label" style="color:var(--success)">接近正常(&lt;40)</div>
+                <div class="stat-label" style="color:var(--success)">接近正常(目标: &lt;40)</div>
             </div>
             <div class="stat-box">
                 <div class="stat-label">AFP (甲胎蛋白)</div>
                 <div class="stat-val trend-down">22.53</div>
                 <div class="stat-label">↓94.8% (峰值: 437)</div>
-                <div class="stat-label" style="color:var(--success)">接近正常(&lt;7)</div>
+                <div class="stat-label" style="color:var(--success)">接近正常(目标: &lt;7)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">AFP-L3% (异质体)</div>
+                <div class="stat-val trend-bad">32.4%</div>
+                <div class="stat-label">↓6.4% (峰值: 38.8%)</div>
+                <div class="stat-label" style="color:var(--danger)">异常 (目标: &lt;10%)</div>
             </div>
             <div class="stat-box">
                 <div class="stat-label">淋巴细胞绝对值</div>
                 <div class="stat-val trend-bad">0.19</div>
                 <div class="stat-label">极低 (最低0.13)</div>
-                <div class="stat-label" style="color:var(--warning)">回升趋势中 ↗(&gt;1.1)</div>
+                <div class="stat-label" style="color:var(--warning)">回升趋势中 ↗(目标: &gt;1.1)</div>
             </div>
             <div class="stat-box">
                 <div class="stat-label">血小板 (PLT)</div>
@@ -456,7 +454,7 @@
                 <div class="img-date">2025.12.05 (外院增强MRI)</div>
                 <div class="img-desc">
                     1. 肝顶S8肿块 <span class="key-point">52mm</span>。<br>
-                    2. <span class="key-point">局部侵犯门静脉右后支（应为右前上背侧枝）</span>。<br>
+                    2. <span class="key-point">局部侵犯门静脉右后支</span>。<br>
                     3. 尾状叶(S1) 9mm 结节。<br>
                     4. 腹膜后淋巴结肿大。
                 </div>
@@ -598,17 +596,6 @@
                         <td>45.4</td>
                         <td>49.1</td>
                     </tr>
-                    <tr>
-                        <td>HBV-DNA</td>
-                        <td>&lt;30</td>
-                        <td>-</td>
-                        <td class="abnormal">100</td>
-                        <td class="abnormal">134</td>
-                        <td>-</td>
-                        <td>&lt;30</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -619,8 +606,8 @@
         <div class="section-title" style="color:var(--purple); margin-bottom:10px;">复查咨询清单</div>
         <ul class="qa-list" style="padding-left:20px;">
             <li><span class="qa-tag">免疫</span> 淋巴细胞仅0.19，是否需要加大<strong>胸腺法新</strong>剂量（每日1次）？</li>
-            <li><span class="qa-tag">治疗</span> 计划进行<strong>异体 NKT/γδT 细胞回输</strong>，请评估最佳介入时间（是现在还是等PD-1前？）。</li>
-            <li><span class="qa-tag">用药</span> <strong>PD-1 (替雷利珠单抗)</strong> 的启动标准是什么？（淋巴细胞需达到多少？0.5还是0.8？）</li>
+            <li><span class="qa-tag">治疗</span> 计划进行<strong>异体 NKT/γδT 细胞回输</strong>，请评估最佳介入时间。</li>
+            <li><span class="qa-tag">用药</span> <strong>PD-1 (替雷利珠单抗)</strong> 的启动标准是什么？（淋巴细胞需达到多少？）</li>
             <li><span class="qa-tag">安全</span> 血小板呈下降趋势 (106)，如果跌破75，仑伐替尼是否减量？</li>
         </ul>
     </div>
@@ -630,7 +617,7 @@
 <script>
     const dates = ['25.09.08', '25.12.03', '25.12.26', '26.01.08', '26.01.12', '26.01.22', '26.01.29'];
 
-    // 1. 肿瘤标志物 (Log Scale for PIVKA)
+    // 1. 肿瘤标志物
     new Chart(document.getElementById('tumorChart'), {
         type: 'line',
         data: {
@@ -645,21 +632,42 @@
                     tension: 0.2
                 },
                 {
-                    label: 'AFP (左轴)',
+                    label: 'AFP (左轴1)',
                     data: [233, 398, 437, 239, 134, 49, 22.5],
                     borderColor: '#2563eb',
                     backgroundColor: '#2563eb',
                     yAxisID: 'y',
                     tension: 0.2
+                },
+                {
+                    label: 'AFP-L3% (左轴2-百分比)',
+                    data: [null, null, null, null, 38.8, 32.4, null],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: '#8b5cf6',
+                    borderDash: [5, 5],
+                    yAxisID: 'y2',
+                    tension: 0.2,
+                    pointStyle: 'rectRot',
+                    pointRadius: 6
                 }
             ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
             scales: {
-                y: { type: 'linear', position: 'left', title: {display:true, text:'AFP'} },
-                y1: { type: 'logarithmic', position: 'right', title: {display:true, text:'PIVKA-II'}, grid: {drawOnChartArea: false} }
+                y: { type: 'linear', position: 'left', title: {display:true, text:'AFP (ng/ml)'} },
+                y2: {
+                    type: 'linear',
+                    position: 'left',
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'AFP-L3 (%)' },
+                    grid: { drawOnChartArea: false },
+                    ticks: { callback: function(value) { return value + '%'; } }
+                },
+                y1: { type: 'logarithmic', position: 'right', title: {display:true, text:'PIVKA-II (mAU/ml)'}, grid: {drawOnChartArea: false} }
             }
         }
     });
