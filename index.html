@@ -704,7 +704,7 @@
             maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
             scales: {
-                y: { type: 'linear', position: 'left', title: {display:true, text:'AFP (ng/ml)'} },
+                y: { type: 'linear', position: 'left', title: {display:true, text:'AFP'} },
                 y2: {
                     type: 'linear',
                     position: 'left',
@@ -714,7 +714,7 @@
                     grid: { drawOnChartArea: false },
                     ticks: { callback: function(value) { return value + '%'; } }
                 },
-                y1: { type: 'logarithmic', position: 'right', title: {display:true, text:'PIVKA-II (mAU/ml)'}, grid: {drawOnChartArea: false} }
+                y1: { type: 'logarithmic', position: 'right', title: {display:true, text:'PIVKA-II'}, grid: {drawOnChartArea: false} }
             }
         }
     });
