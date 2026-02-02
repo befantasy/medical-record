@@ -256,9 +256,42 @@
         .qa-list li { margin-bottom: 12px; }
         .qa-tag { background: var(--warning); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px; }
 
+        /* 新增：综述网格布局 */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .overview-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .ov-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+        }
+        .ov-list {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .ov-list li { margin-bottom: 6px; }
+        .ov-list li:last-child { margin-bottom: 0; }
+        .ov-label { font-weight: 600; color: var(--text-main); margin-right: 4px; }
+
         @media (max-width: 768px) {
             .header-top { flex-direction: column; }
             .charts-wrapper { grid-template-columns: 1fr; }
+            .overview-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -274,13 +307,13 @@
                 <div class="patient-meta">最近复查：2026-01-29 (术后3周) | BMI: 23.8</div>
             </div>
             <div class="tag-group">
+                <span class="tag tag-green">ECOG 0</span>
+                <span class="tag tag-green">Child-Pugh A</span>
                 <span class="tag tag-dx">原发性肝癌 (CNLC IIIa期)</span>
                 <span class="tag tag-dx">S8巨块型</span>
                 <span class="tag tag-dx">门脉癌栓</span>
                 <span class="tag tag-rx">钇90术后</span>
                 <span class="tag tag-rx">靶向治疗中</span>
-                <span class="tag tag-green">ECOG 0</span>
-                <span class="tag tag-green">Child-Pugh A</span>
             </div>
         </div>
         
@@ -308,26 +341,183 @@
         </div>
     </div>
 
-    <!-- 1.2 病情与治疗综述 -->
+    <!-- 2. 病情与治疗综述 (Overview) -->
     <div class="section-card" style="border-top: 4px solid var(--primary);">
         <div class="section-title">病情与治疗综述</div>
-        <div style="font-size: 0.95rem; color: #334155; line-height: 1.8;">
-            <p style="margin-top: 0; margin-bottom: 12px;">
-                <strong><span style="color:var(--primary)">【核心诊断】</span></strong> 
-                原发性肝癌（CNLC IIIa期），主病灶位于肝右叶S8段（巨块型），伴门静脉右前上背侧支癌栓及尾状叶S1活性结节。基础病史包含乙肝肝硬化、2型糖尿病及高血压。
-            </p>
-            <p style="margin-bottom: 12px;">
-                <strong><span style="color:var(--primary)">【治疗策略】</span></strong> 
-                实施“局部内放射 + 系统靶向”联合方案。2026年1月8日完成 <strong>钇90微球介入治疗 (3 GBq)</strong>，精准覆盖S8主灶及S1子灶。术后持续予以 <strong>仑伐替尼</strong> 靶向抑瘤，联合 <strong>TAF</strong> 抗病毒及 <strong>胸腺法新</strong> 免疫支持。
-            </p>
-            <p style="margin-bottom: 0;">
-                <strong><span style="color:var(--success)">【当前评估】</span></strong> 
-                术后3周（2026.01.29）复查示极佳生化应答，<strong>PIVKA-II</strong> 与 <strong>AFP</strong> 呈断崖式下降，提示肿瘤活性被深度抑制。目前患者处于瘤体坏死吸收期，肝功能保留良好 (Child-Pugh A)，ECOG评分0分，淋巴细胞正从低谷缓慢回升，正待时机启动PD-1免疫治疗。
-            </p>
+        <div class="overview-grid">
+            <!-- 诊断与治疗 (合并版) -->
+            <div class="overview-box">
+                <div class="ov-title" style="color:var(--primary)">诊断与当前治疗 Diagnosis & Rx</div>
+                <ul class="ov-list">
+                    <li><span class="ov-label">核心诊断：</span>原发性肝癌 (IIIa期)：S8巨块(6.6cm) + S1结节 + 门脉癌栓(Vp3)；乙肝肝硬化(Child A)。</li>
+                    <li><span class="ov-label">当前治疗：</span>[局部] 钇90微球介入 (3GBq, 26.01.08)；[全身] 仑伐替尼(8mg) + TAF + 胸腺法新。</li>
+                </ul>
+            </div>
+
+            <!-- 疗效 -->
+            <div class="overview-box" style="background:#f0fdf4; border-color:#bbf7d0;">
+                <div class="ov-title" style="color:#15803d;">近期疗效 Efficacy (术后3周)</div>
+                <ul class="ov-list">
+                    <li><span class="ov-label">生化完全应答：</span>PIVKA-II <span style="color:#15803d; font-weight:bold;">↓99.5%</span> (9862→45.2)；AFP <span style="color:#15803d; font-weight:bold;">↓95%</span> (437→22.5)。</li>
+                    <li><span class="ov-label">影像：</span>术后SPECT示肿瘤浓聚良好，有扩边效应。</li>
+                </ul>
+            </div>
+
+            <!-- 问题 -->
+            <div class="overview-box" style="background:#fef2f2; border-color:#fecaca;">
+                <div class="ov-title" style="color:#991b1b;">当前主要问题 Main Issues</div>
+                <ul class="ov-list">
+                    <li><span class="ov-label">免疫抑制：</span>淋巴细胞 0.19 (IV度)，限制了PD-1启动。</li>
+                    <li><span class="ov-label">顽固指标：</span>AFP-L3% 仍高 (32%)，提示残留恶性克隆。</li>
+                    <li><span class="ov-label">合并症：</span>术后曾有水样腹泻 (已缓解)；血小板缓慢下降 (106)。</li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <!-- 2. 治疗全过程时间轴 -->
+    <!-- 3. 核心战果看板 (Results - Metrics) -->
+    <div class="section-card">
+        <div class="section-title" style="flex-wrap: wrap;">
+            <span>核心指标追踪 <small style="color:var(--text-light); font-weight:400; font-size: 0.9rem;">(术后3周 vs 峰值)</small></span>
+            <span style="font-size:0.85rem; color:var(--text-light); font-weight:400; margin-left: auto;">目标：肿瘤降期/手术转化</span>
+        </div>
+        <div class="highlight-grid">
+            <div class="stat-box">
+                <div class="stat-label">PIVKA-II (异常凝血酶原)</div>
+                <div class="stat-val trend-down">45.2</div>
+                <div class="stat-label">↓99.5% (峰值: 9862)</div>
+                <div class="stat-label" style="color:var(--success)">接近正常 (目标: &lt;40)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">AFP (甲胎蛋白)</div>
+                <div class="stat-val trend-down">22.53</div>
+                <div class="stat-label">↓94.8% (峰值: 437)</div>
+                <div class="stat-label" style="color:var(--success)">接近正常 (目标: &lt;7)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">AFP-L3% (异质体)</div>
+                <div class="stat-val trend-bad">32.4%</div>
+                <div class="stat-label">↓6.4% (峰值: 38.8%)</div>
+                <div class="stat-label" style="color:var(--danger)">异常 (目标: &lt;10%)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">淋巴细胞绝对值</div>
+                <div class="stat-val trend-bad">0.19</div>
+                <div class="stat-label">极低 (最低0.13)</div>
+                <div class="stat-label" style="color:var(--warning)">回升趋势中↗ (目标: &gt;1.1)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">血小板 (PLT)</div>
+                <div class="stat-val trend-bad">106</div>
+                <div class="stat-label">偏低 (基线: 140)</div>
+                <div class="stat-label">监测出血风险</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 关键指标趋势图表 (Results - Charts) -->
+    <div class="section-card">
+        <div class="section-title">关键指标趋势分析</div>
+        <div class="charts-wrapper">
+            <!-- 肿瘤标志物 -->
+            <div class="chart-box">
+                <div class="canvas-holder">
+                    <canvas id="tumorChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 肝功能 -->
+            <div class="chart-box">
+                <div class="canvas-holder">
+                    <canvas id="liverChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 免疫状态 (带注解) -->
+            <div class="chart-box">
+                <div class="canvas-holder">
+                    <canvas id="immuneChart"></canvas>
+                </div>
+                <div class="chart-legend info">
+                    <strong>图注：灰线 (0.8) - PD-1启动基线</strong>
+                    <span>淋巴细胞需恢复至 >0.8 (理想>1.1) 方可启动 PD-1 免疫治疗，低于此数值治疗可能无效或引发风险。</span>
+                </div>
+            </div>
+
+            <!-- 血小板 (带注解) -->
+            <div class="chart-box">
+                <div class="canvas-holder">
+                    <canvas id="pltChart"></canvas>
+                </div>
+                <div class="chart-legend warning">
+                    <strong>图注：红线 (75) - 减量警戒线</strong>
+                    <span>若血小板跌破 75，出血风险显著增加。需考虑暂停仑伐替尼或减量（12mg → 8mg）直至血小板回升。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 影像学对比 (Results - Imaging) -->
+    <div class="section-card">
+        <div class="section-title">关键影像学演变</div>
+        <div class="img-grid">
+            <div class="img-box">
+                <div class="img-date">2025.12.05 (外院增强MRI)</div>
+                <div class="img-desc">
+                    1. 肝顶S8肿块 <span class="key-point">52mm</span>。<br>
+                    2. <span class="key-point">局部侵犯门静脉右后支</span>。<br>
+                    3. 尾状叶(S1) 9mm 结节。<br>
+                    4. 腹膜后淋巴结肿大。
+                </div>
+            </div>
+            <div class="img-box">
+                <div class="img-date">2025.12.19 (入院前PET-CT)</div>
+                <div class="img-desc">
+                    1. S8肿块 FDG高代谢 (SUVmax 8.3)。<br>
+                    2. S1结节 SUVmax 3.2 (<span class="key-point">疑似活性病灶</span>)。<br>
+                    3. 纵隔4R淋巴结 SUV 3.9 (反应性增生)。<br>
+                </div>
+            </div>
+
+            <div class="img-box">
+                <div class="img-date">2025.12.25 (增强CT+超声造影)</div>
+                <div class="img-desc">
+                    1. 增强CT: 右肝S8段 <span class="key-point">66x55mm</span> 低密度灶，呈“快进快出”，伴坏死，<span class="key-point">肝右静脉受侵。</span><br>
+                    2. 超声造影: <span class="key-point">门脉右前上背侧支癌栓</span>。<br>
+                    3. 基础：肝硬化，脾大。
+                </div>
+            </div>
+
+            <div class="img-box">
+                <div class="img-date">2025.12.29 (钇90术前SPECT)</div>
+                <div class="img-desc">
+                    1. 摄取良好: 示踪剂不均匀浓聚，T/N 比值 <span class="key-point" style="color:var(--success)">5.9</span>。<br>
+                    2. 安全性: 肺分流率(LSF) <span class="key-point" style="color:var(--success)">7.0%</span> (低风险)。<br>
+                    3. 结论：适合行钇90内放射治疗。
+                </div>
+            </div>
+
+            <!-- 2026.01.08 钇90术后验证 -->
+            <div class="img-box" style="border-color: #10b981; background: #f0fdf4;">
+                <div class="img-date" style="color: #047857;">2026.01.08 (钇90术后SPECT)</div>
+                <div class="img-desc">
+                    1. 右肝病变内示踪剂<span class="key-point" style="color:var(--success)">明显浓聚</span>。<br>
+                    2. 双肺及肝外腹部脏器<span class="key-point" style="color:var(--success)">未见示踪剂摄取</span> (无异位栓塞)。<br>
+                    3. 结论：手术顺利，药物精准植入瘤体。
+                </div>
+            </div>
+
+            <div class="img-box" style="background:#f0f9ff; border-color:#2563eb;">
+                <div class="img-date">2026.01.29 (治疗反应)</div>
+                <div class="img-desc">
+                    <strong>生物学反应：</strong> PIVKA-II 降至 45.2，AFP 降至 22.5。<br>
+                    <strong>推断：</strong> 肿瘤活性已被大幅抑制，处于坏死吸收期。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. 治疗全过程时间轴 (History/Context) -->
     <div class="section-card">
         <div class="section-title">关键治疗时间轴</div>
         <div class="timeline">
@@ -390,149 +580,63 @@
         </div>
     </div>
 
-    <!-- 2.5 核心战果看板 -->
+    <!-- 7. 当前用药方案 (Context) -->
     <div class="section-card">
-        <div class="section-title" style="flex-wrap: wrap;">
-            <span>核心指标追踪 <small style="color:var(--text-light); font-weight:400; font-size: 0.9rem;">(术后3周 vs 峰值)</small></span>
-            <span style="font-size:0.85rem; color:var(--text-light); font-weight:400; margin-left: auto;">目标：肿瘤降期/手术转化</span>
-        </div>
-        <div class="highlight-grid">
-            <div class="stat-box">
-                <div class="stat-label">PIVKA-II (异常凝血酶原)</div>
-                <div class="stat-val trend-down">45.2</div>
-                <div class="stat-label">↓99.5% (峰值: 9862)</div>
-                <div class="stat-label" style="color:var(--success)">接近正常 (目标: &lt;40)</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">AFP (甲胎蛋白)</div>
-                <div class="stat-val trend-down">22.53</div>
-                <div class="stat-label">↓94.8% (峰值: 437)</div>
-                <div class="stat-label" style="color:var(--success)">接近正常 (目标: &lt;7)</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">AFP-L3% (异质体)</div>
-                <div class="stat-val trend-bad">32.4%</div>
-                <div class="stat-label">↓6.4% (峰值: 38.8%)</div>
-                <div class="stat-label" style="color:var(--danger)">异常 (目标: &lt;10%)</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">淋巴细胞绝对值</div>
-                <div class="stat-val trend-bad">0.19</div>
-                <div class="stat-label">极低 (最低0.13)</div>
-                <div class="stat-label" style="color:var(--warning)">回升趋势中↗ (目标: &gt;1.1)</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-label">血小板 (PLT)</div>
-                <div class="stat-val trend-bad">106</div>
-                <div class="stat-label">偏低 (基线: 140)</div>
-                <div class="stat-label">监测出血风险</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. 数据图表区 -->
-    <div class="section-card">
-        <div class="section-title">关键指标趋势分析</div>
-        <div class="charts-wrapper">
-            <!-- 肿瘤标志物 -->
-            <div class="chart-box">
-                <div class="canvas-holder">
-                    <canvas id="tumorChart"></canvas>
-                </div>
-            </div>
-
-            <!-- 肝功能 -->
-            <div class="chart-box">
-                <div class="canvas-holder">
-                    <canvas id="liverChart"></canvas>
-                </div>
+        <div class="section-title">当前用药方案</div>
+        <div class="med-grid">
+            <div class="med-box med-tumor">
+                <div class="med-name">仑伐替尼 <span style="font-size:1.2rem">💊</span></div>
+                <div class="med-desc">Lenvatinib (乐卫玛)</div>
+                <div class="med-tag">核心抗肿瘤</div>
+                <div class="med-dose">12mg (3粒) / 每日1次</div>
             </div>
             
-            <!-- 免疫状态 (带注解) -->
-            <div class="chart-box">
-                <div class="canvas-holder">
-                    <canvas id="immuneChart"></canvas>
-                </div>
-                <div class="chart-legend info">
-                    <strong>图注：灰线 (0.8) - PD-1启动基线</strong>
-                    <span>淋巴细胞需恢复至 >0.8 (理想>1.1) 方可启动 PD-1 免疫治疗，低于此数值治疗可能无效或引发风险。</span>
-                </div>
+            <div class="med-box med-immune">
+                <div class="med-name">胸腺法新 <span style="font-size:1.2rem">🛡️</span></div>
+                <div class="med-desc">Thymalfasin (日达仙)</div>
+                <div class="med-tag">免疫调节</div>
+                <div class="med-dose">1.6mg / 每2天</div>
             </div>
 
-            <!-- 血小板 (带注解) -->
-            <div class="chart-box">
-                <div class="canvas-holder">
-                    <canvas id="pltChart"></canvas>
-                </div>
-                <div class="chart-legend warning">
-                    <strong>图注：红线 (75) - 减量警戒线</strong>
-                    <span>若血小板跌破 75，出血风险显著增加。需考虑暂停仑伐替尼或减量（12mg → 8mg）直至血小板回升。</span>
-                </div>
+            <div class="med-box med-virus">
+                <div class="med-name">丙酚替诺福韦 <span style="font-size:1.2rem">🦠</span></div>
+                <div class="med-desc">TAF (韦立得)</div>
+                <div class="med-tag">乙肝抗病毒</div>
+                <div class="med-dose">25mg / 每日1次</div>
+            </div>
+
+            <div class="med-box med-chronic">
+                <div class="med-name">门冬胰岛素30 <span style="font-size:1.2rem">💉</span></div>
+                <div class="med-desc">Insulin Aspart 30 (诺和锐30)</div>
+                <div class="med-tag">糖尿病控制</div>
+                <div class="med-dose">皮下注射 (遵医嘱)</div>
+            </div>
+
+            <div class="med-box med-chronic">
+                <div class="med-name">氨氯地平 <span style="font-size:1.2rem">❤️</span></div>
+                <div class="med-desc">Amlodipine (络活喜)</div>
+                <div class="med-tag">降血压</div>
+                <div class="med-dose">5mg / 每日1次</div>
             </div>
         </div>
     </div>
 
-    <!-- 4. 影像学对比 -->
-    <div class="section-card">
-        <div class="section-title">关键影像学演变</div>
-        <div class="img-grid">
-            <div class="img-box">
-                <div class="img-date">2025.12.05 (外院增强MRI)</div>
-                <div class="img-desc">
-                    1. 肝顶S8肿块 <span class="key-point">52mm</span>。<br>
-                    2. <span class="key-point">局部侵犯门静脉右后支</span>。<br>
-                    3. 尾状叶(S1) 9mm 结节。<br>
-                    4. 腹膜后淋巴结肿大。
-                </div>
-            </div>
-            <div class="img-box">
-                <div class="img-date">2025.12.19 (入院前PET-CT)</div>
-                <div class="img-desc">
-                    1. S8肿块 FDG高代谢 (SUVmax 8.3)。<br>
-                    2. S1结节 SUVmax 3.2 (<span class="key-point">疑似活性病灶</span>)。<br>
-                    3. 纵隔4R淋巴结 SUV 3.9 (反应性增生)。<br>
-                </div>
-            </div>
-
-            <div class="img-box">
-                <div class="img-date">2025.12.25 (增强CT+超声造影)</div>
-                <div class="img-desc">
-                    1. 增强CT: 右肝S8段 <span class="key-point">66x55mm</span> 低密度灶，呈“快进快出”，伴坏死，<span class="key-point">肝右静脉受侵。</span><br>
-                    2. 超声造影: <span class="key-point">门脉右前上背侧支癌栓</span>。<br>
-                    3. 基础：肝硬化，脾大。
-                </div>
-            </div>
-
-            <div class="img-box">
-                <div class="img-date">2025.12.29 (钇90术前SPECT)</div>
-                <div class="img-desc">
-                    1. 摄取良好: 示踪剂不均匀浓聚，T/N 比值 <span class="key-point" style="color:var(--success)">5.9</span>。<br>
-                    2. 安全性: 肺分流率(LSF) <span class="key-point" style="color:var(--success)">7.0%</span> (低风险)。<br>
-                    3. 结论：适合行钇90内放射治疗。
-                </div>
-            </div>
-
-            <!-- 新增板块：2026.01.08 钇90术后验证 -->
-            <div class="img-box" style="border-color: #10b981; background: #f0fdf4;">
-                <div class="img-date" style="color: #047857;">2026.01.08 (钇90术后SPECT)</div>
-                <div class="img-desc">
-                    1. 右肝病变内示踪剂<span class="key-point" style="color:var(--success)">明显浓聚</span>。<br>
-                    2. 双肺及肝外腹部脏器<span class="key-point" style="color:var(--success)">未见示踪剂摄取</span> (无异位栓塞)。<br>
-                    3. 结论：手术顺利，药物精准植入瘤体。
-                </div>
-            </div>
-
-            <div class="img-box" style="background:#f0f9ff; border-color:#2563eb;">
-                <div class="img-date">2026.01.29 (治疗反应)</div>
-                <div class="img-desc">
-                    <strong>生物学反应：</strong> PIVKA-II 降至 45.2，AFP 降至 22.5。<br>
-                    <strong>推断：</strong> 肿瘤活性已被大幅抑制，处于坏死吸收期。
-                </div>
-            </div>
-        </div>
+    <!-- 8. 复查咨询清单 (Questions) -->
+    <div class="section-card" style="border-left: 6px solid var(--purple);">
+        <div class="section-title" style="color:var(--purple); margin-bottom:10px;">本次复查核心诉求/咨询清单</div>
+        <ul class="qa-list" style="padding-left:20px;">
+            <li><span class="qa-tag">免疫</span> 淋巴细胞仅0.19，是否需要加大<strong>胸腺法新</strong>剂量（每日1次）？</li>
+            <li><span class="qa-tag">免疫</span> 考虑进行<strong>异体 NKT/γδT 细胞回输</strong>，请评估最佳介入时间。</li>
+            <li><span class="qa-tag">用药</span> <strong>PD-1 (替雷利珠单抗)</strong> 的启动时机和标准（淋巴细胞需达到多少？其他？）</li>
+            <li><span class="qa-tag">检查</span> 除了肝顶S8主病灶，<strong>尾状叶S1高代谢9mm结节</strong>（PET SUV 3.2）是否受控？</li>
+            <li><span class="qa-tag">检查</span> <strong>肝右静脉</strong>（术前增强CT）、<strong>门静脉右前上背侧支</strong>（术前门脉超声/脏器超声造影）癌栓是否受控？</li>
+            <li><span class="qa-tag">指标</span> AFP-L3%下降较少（38.8% -> 32%），是否意味着门脉癌栓/尾状叶S1残余？</li>
+            <li><span class="qa-tag">安全</span> 血小板呈下降趋势 (106)，如果跌破75，仑伐替尼是否减量？</li>
+            <li><span class="qa-tag">其他</span> CTC循环肿瘤细胞检验、ICG-R15试验、残肝体积（FLR/SLV）没有电子或纸质报告，需要相关数据备用。</li>
+        </ul>
     </div>
 
-    <!-- 5. 详细数据表 -->
+    <!-- 9. 详细数据表 (Raw Data) -->
     <div class="section-card">
         <div class="section-title">全量检验数据表 (可左右滑动)</div>
         <div class="table-container">
@@ -664,62 +768,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <!-- 1.5 当前用药方案 -->
-    <div class="section-card">
-        <div class="section-title">当前用药方案</div>
-        <div class="med-grid">
-            <div class="med-box med-tumor">
-                <div class="med-name">仑伐替尼 <span style="font-size:1.2rem">💊</span></div>
-                <div class="med-desc">Lenvatinib (乐卫玛)</div>
-                <div class="med-tag">核心抗肿瘤</div>
-                <div class="med-dose">12mg (3粒) / 每日1次</div>
-            </div>
-            
-            <div class="med-box med-immune">
-                <div class="med-name">胸腺法新 <span style="font-size:1.2rem">🛡️</span></div>
-                <div class="med-desc">Thymalfasin (日达仙)</div>
-                <div class="med-tag">免疫调节</div>
-                <div class="med-dose">1.6mg / 每2天</div>
-            </div>
-
-            <div class="med-box med-virus">
-                <div class="med-name">丙酚替诺福韦 <span style="font-size:1.2rem">🦠</span></div>
-                <div class="med-desc">TAF (韦立得)</div>
-                <div class="med-tag">乙肝抗病毒</div>
-                <div class="med-dose">25mg / 每日1次</div>
-            </div>
-
-            <div class="med-box med-chronic">
-                <div class="med-name">门冬胰岛素30 <span style="font-size:1.2rem">💉</span></div>
-                <div class="med-desc">Insulin Aspart 30 (诺和锐30)</div>
-                <div class="med-tag">糖尿病控制</div>
-                <div class="med-dose">皮下注射 (遵医嘱)</div>
-            </div>
-
-            <div class="med-box med-chronic">
-                <div class="med-name">氨氯地平 <span style="font-size:1.2rem">❤️</span></div>
-                <div class="med-desc">Amlodipine (络活喜)</div>
-                <div class="med-tag">降血压</div>
-                <div class="med-dose">5mg / 每日1次</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. 咨询清单 -->
-    <div class="card" style="border-left: 4px solid var(--purple);">
-        <div class="section-title" style="color:var(--purple); margin-bottom:10px;">复查咨询清单</div>
-        <ul class="qa-list" style="padding-left:20px;">
-            <li><span class="qa-tag">免疫</span> 淋巴细胞仅0.19，是否需要加大<strong>胸腺法新</strong>剂量（每日1次）？</li>
-            <li><span class="qa-tag">免疫</span> 考虑进行<strong>异体 NKT/γδT 细胞回输</strong>，请评估最佳介入时间。</li>
-            <li><span class="qa-tag">用药</span> <strong>PD-1 (替雷利珠单抗)</strong> 的启动时机和标准（淋巴细胞需达到多少？其他？）</li>
-            <li><span class="qa-tag">检查</span> 除了肝顶S8主病灶，<strong>尾状叶S1高代谢9mm结节</strong>（PET SUV 3.2）是否受控？</li>
-            <li><span class="qa-tag">检查</span> <strong>肝右静脉</strong>（术前增强CT）、<strong>门静脉右前上背侧支</strong>（术前门脉超声/脏器超声造影）癌栓是否受控？</li>
-            <li><span class="qa-tag">指标</span> AFP-L3%下降较少（38.8% -> 32%），是否意味着门脉癌栓/尾状叶S1残余？</li>
-            <li><span class="qa-tag">安全</span> 血小板呈下降趋势 (106)，如果跌破75，仑伐替尼是否减量？</li>
-            <li><span class="qa-tag">其他</span> CTC循环肿瘤细胞检验、ICG-R15试验、残肝体积（FLR/SLV）没有电子或纸质报告，需要相关数据备用。</li>
-        </ul>
     </div>
 
 </div>
