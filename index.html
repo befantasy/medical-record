@@ -643,6 +643,17 @@
                         <td>45.4</td>
                         <td>49.1</td>
                     </tr>
+                    <tr>
+                        <td>INR (国际标准化比值)</td>
+                        <td>0.8-1.3</td>
+                        <td>-</td>
+                        <td>1.06</td>
+                        <td>1.05</td>
+                        <td>-</td>
+                        <td>1.07</td>
+                        <td>1.11</td>
+                        <td>1.12</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -731,10 +742,20 @@
             datasets: [
                 { label: 'ALT', data: [18, 15, 20, 15.5, 25, 25, 26], backgroundColor: '#3b82f6', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
                 { label: 'AST', data: [24, 19, 19.3, 35.8, 42, 30, 29], backgroundColor: '#93c5fd', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
-                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1], borderColor: '#8b5cf6', order: 0 }
+                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1], borderColor: '#8b5cf6', order: 0 },
+                // Added datasets
+                { label: '白蛋白', type:'line', data: [50.8, 52.5, 46.1, 44.2, 44.8, 45.4, 49.1], borderColor: '#10b981', tension: 0.3, order: 0 },
+                { label: 'INR (右轴)', type:'line', data: [null, 1.06, 1.05, null, 1.07, 1.11, 1.12], borderColor: '#f59e0b', tension: 0.3, yAxisID: 'y1', order: 0 }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { type: 'linear', position: 'left', title: {display:true, text:'数值'} },
+                y1: { type: 'linear', position: 'right', title: {display:true, text:'INR'}, grid: {drawOnChartArea: false} }
+            }
+        }
     });
 
     // 3. 免疫 (淋巴 vs 中性)
