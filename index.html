@@ -461,7 +461,7 @@
                 </div>
                 <div class="chart-legend success" style="border-left: 4px solid #10b981; background: #f0fdf4;">
                     <strong>图注：血小板已回升</strong>
-                    <span>血小板短暂下跌后已重返正常参考范围内 (125-350)。若血小板跌破 75，需考虑暂停仑伐替尼或减量。</span>
+                    <span>血小板短暂下跌后重返正常参考范围内 (125-350)。若血小板跌破 75，需考虑暂停仑伐替尼或减量</span>
                 </div>
             </div>
         </div>
@@ -875,6 +875,7 @@
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
             scales: {
                 y: { type: 'linear', position: 'left', title: {display:true, text:'数值'} },
                 y1: { type: 'linear', position: 'right', title: {display:true, text:'INR'}, grid: {drawOnChartArea: false} }
@@ -902,148 +903,6 @@
                     borderColor: '#f59e0b',
                     borderDash: [5,5],
                     tension: 0.3
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                annotation: {
-                    annotations: {
-                        line1: {
-                            type: 'line',
-                            yMin: 0.8,
-                            yMax: 0.8,
-                            borderColor: 'gray',
-                            borderWidth: 1,
-                            label: { content: 'PD-1启动警戒线', enabled: true, position: 'end' }
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    // 4. 血小板
-    new Chart(document.getElementById('pltChart'), {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [{
-                label: '血小板 (PLT)',
-                data: [108, 137, 121, 139, 159, 140, 106, 131],
-                borderColor: '#ec4899',
-                backgroundColor: 'rgba(236, 72, 153, 0.1)',
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                annotation: {
-                    annotations: {
-                        line1: { type: 'line', yMin: 75, yMax: 75, borderColor: 'red', borderWidth: 2, label: { content: '减量警戒线', enabled: true } }
-                    }
-                }
-            },
-            scales: { y: { beginAtZero: false, min: 0 } }
-        }
-    });
-</script>
-
-</body>
-</html>
-                        <td>ALT (谷丙)</td>
-                        <td>9-60</td>
-                        <td>18</td>
-                        <td>15</td>
-                        <td>20</td>
-                        <td>15.5</td>
-                        <td>25</td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>31</td>
-                    </tr>
-                    <tr>
-                        <td>TBil (总胆)</td>
-                        <td>5-28</td>
-                        <td>21.7</td>
-                        <td>13.5</td>
-                        <td>14.9</td>
-                        <td>14.5</td>
-                        <td>24.0</td>
-                        <td>17.2</td>
-                        <td>24.1</td>
-                        <td>14.9</td>
-                    </tr>
-                    <tr>
-                        <td>ALB (白蛋白)</td>
-                        <td>40-55</td>
-                        <td>50.8</td>
-                        <td>52.5</td>
-                        <td>46.1</td>
-                        <td>44.2</td>
-                        <td>44.8</td>
-                        <td>45.4</td>
-                        <td>49.1</td>
-                        <td>48.0</td>
-                    </tr>
-                    <tr>
-                        <td>INR (国际标准化比值)</td>
-                        <td>0.8-1.3</td>
-                        <td>-</td>
-                        <td>1.06</td>
-                        <td>1.05</td>
-                        <td>-</td>
-                        <td>1.07</td>
-                        <td>1.11</td>
-                        <td>1.12</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-</div>
-
-<script>
-    const dates = ['25.09.08', '25.12.03', '25.12.26', '26.01.08', '26.01.12', '26.01.22', '26.01.29', '26.02.04'];
-
-    // 1. 肿瘤标志物
-    new Chart(document.getElementById('tumorChart'), {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'PIVKA-II (右轴-对数)',
-                    data: [null, null, 6400, 9862, 2239, 124, 45.2, 45.9],
-                    borderColor: '#ef4444',
-                    backgroundColor: '#ef4444',
-                    yAxisID: 'y1',
-                    tension: 0.2
-                },
-                {
-                    label: 'AFP (左轴1)',
-                    data: [233, 398, 437, 239, 134, 49, 22.5, 15.4],
-                    borderColor: '#2563eb',
-                    backgroundColor: '#2563eb',
-                    yAxisID: 'y',
-                    tension: 0.2
-                },
-                {
-                    label: 'AFP-L3% (左轴2-百分比)',
-                    data: [null, null, null, null, 38.8, 32.4, null, null],
-                    borderColor: '#8b5cf6',
-                    backgroundColor: '#8b5cf6',
-                    borderDash: [5, 5],
-                    yAxisID: 'y2',
-                    tension: 0.2,
-                    pointStyle: 'rectRot',
-                    pointRadius: 6
                 }
             ]
         },
@@ -1051,72 +910,6 @@
             responsive: true,
             maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
-            scales: {
-                y: { type: 'linear', position: 'left', title: {display:true, text:'AFP'} },
-                y2: {
-                    type: 'linear',
-                    position: 'left',
-                    min: 0,
-                    max: 100,
-                    title: { display: false, text: 'AFP-L3 (%)' },
-                    grid: { drawOnChartArea: false },
-                    ticks: { callback: function(value) { return value + '%'; } }
-                },
-                y1: { type: 'logarithmic', position: 'right', title: {display:true, text:'PIVKA-II'}, grid: {drawOnChartArea: false} }
-            }
-        }
-    });
-
-    // 2. 肝功能
-    new Chart(document.getElementById('liverChart'), {
-        type: 'bar',
-        data: {
-            labels: dates,
-            datasets: [
-                { label: 'ALT', data: [18, 15, 20, 15.5, 25, 25, 26, 31.3], backgroundColor: '#3b82f6', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
-                { label: 'AST', data: [24, 19, 19.3, 35.8, 42, 30, 29, 30.2], backgroundColor: '#93c5fd', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
-                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1, 14.9], borderColor: '#8b5cf6', order: 0 },
-                // Added datasets
-                { label: '白蛋白', type:'line', data: [50.8, 52.5, 46.1, 44.2, 44.8, 45.4, 49.1, 48.0], borderColor: '#10b981', tension: 0.3, order: 0 },
-                { label: 'INR (右轴)', type:'line', data: [null, 1.06, 1.05, null, 1.07, 1.11, 1.12, null], borderColor: '#f59e0b', tension: 0.3, yAxisID: 'y1', order: 0 }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: { type: 'linear', position: 'left', title: {display:true, text:'数值'} },
-                y1: { type: 'linear', position: 'right', title: {display:true, text:'INR'}, grid: {drawOnChartArea: false} }
-            }
-        }
-    });
-
-    // 3. 免疫 (淋巴 vs 中性)
-    new Chart(document.getElementById('immuneChart'), {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: '淋巴细胞 (#)',
-                    data: [0.66, 0.45, 0.59, 0.27, 0.20, 0.13, 0.19, 0.29],
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    fill: true,
-                    tension: 0.3
-                },
-                {
-                    label: '中性粒细胞 (#)',
-                    data: [1.68, 1.87, 1.37, 2.25, 2.69, 2.09, 1.93, 1.63],
-                    borderColor: '#f59e0b',
-                    borderDash: [5,5],
-                    tension: 0.3
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
             plugins: {
                 annotation: {
                     annotations: {
@@ -1150,6 +943,7 @@
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
             plugins: {
                 annotation: {
                     annotations: {
