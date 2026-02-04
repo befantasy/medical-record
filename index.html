@@ -188,6 +188,7 @@
         .stat-val { font-size: 1.6rem; font-weight: 800; line-height: 1.2; margin: 8px 0; }
         .trend-down { color: var(--success); }
         .trend-bad { color: var(--danger); }
+        .trend-warn { color: var(--warning); }
 
         /* 影像学对比表格 */
         .img-grid {
@@ -304,7 +305,7 @@
         <div class="header-top">
             <div>
                 <h1 class="patient-name">潘建成 <span style="font-size:1.2rem; font-weight:400; color:#64748b;">(男, 65岁)</span></h1>
-                <div class="patient-meta">最近复查：2026-01-29 (术后3周) | BMI: 23.8</div>
+                <div class="patient-meta">最近复查：2026-02-04 (术后4周) | BMI: 23.8</div>
             </div>
             <div class="tag-group">
                 <span class="tag tag-dx">原发性肝癌 (CNLC IIIa期)</span>
@@ -355,20 +356,17 @@
                     <li><span class="tl-tag" style="background:#e0e7ff; color:#3730a3">治疗</span> <span class="ov-label">[局部]</span> 钇90介入S8/S1病灶 (3GBq)</li>
                     <li><span class="tl-tag" style="background:#e0e7ff; color:#3730a3">治疗</span> <span class="ov-label">[全身]</span> 仑伐替尼(12mg Qd) + TAF</li>
                     <li><span class="tl-tag" style="background:#e0e7ff; color:#3730a3">治疗</span> <span class="ov-label">[免疫]</span> 胸腺法新</li>
-
-
                 </ul>
             </div>
 
             <!-- 疗效 -->
             <div class="overview-box" style="background:#f0fdf4; border-color:#bbf7d0;">
-                <div class="ov-title" style="color:#15803d;">近期疗效 (术后3周)</div>
+                <div class="ov-title" style="color:#15803d;">近期疗效 (术后4周)</div>
                 <ul class="ov-list">
                     <li><span class="ov-label">术后影像：</span>SPECT示肿瘤浓聚良好有扩边效应</li>
-                    <li><span class="ov-label">生化完全应答：</span>PIVKA-II <span style="color:#15803d; font-weight:bold;">↓99.5%</span> (9862→45.2) / AFP <span style="color:#15803d; font-weight:bold;">↓95%</span> (437→22.5)</li>
-                    <li><span class="ov-label">肝功能：</span>均在正常范围内</li>
-                    <li><span class="ov-label">乙肝病毒：</span>HBV-DNA 转阴</li>
-
+                    <li><span class="ov-label">生化应答：</span>AFP 持续下降 (<span style="color:#15803d; font-weight:bold;">437→15.4</span>)；PIVKA-II 骤降 (<span style="color:#15803d; font-weight:bold;">9862→45.9</span>)</li>
+                    <li><span class="ov-label">肝功能：</span>转氨酶正常，胆红素正常，白蛋白优良。</li>
+                    <li><span class="ov-label">乙肝病毒：</span>HBV-DNA 持续转阴</li>
                 </ul>
             </div>
 
@@ -376,11 +374,12 @@
             <div class="overview-box" style="background:#fef2f2; border-color:#fecaca;">
                 <div class="ov-title" style="color:#991b1b;">遗留问题</div>
                 <ul class="ov-list">
-                    <li><span class="ov-label">免疫抑制：</span>淋巴细胞 0.19 (IV度) 限制了PD-1启动</li>
+                    <li><span class="ov-label">免疫抑制：</span>淋巴细胞缓慢回升 (0.29)，但仍处于低位，限制PD-1启动。</li>
+                    <li><span class="ov-label">白细胞：</span>白细胞总数偏低 (2.32)。</li>
+                    <li><span class="ov-label">中性粒细胞：</span>中性粒细胞有下降趋势 (2.69→1.63)。</li>
                     <li><span class="ov-label">顽固指标：</span>AFP-L3% 仍高 (39%→32%)</li>
-                    <li><span class="ov-label">合并症：</span>术后曾有水样腹泻 (已缓解)；血小板缓慢下降 (106)</li>
-                    <li><span class="ov-label">切除手术：</span>等待手术指征</li>
-
+                    <li><span class="ov-label">合并症：</span>术后曾有水样腹泻 (已缓解)；血小板出现过下降 (106)，现已恢复</li>
+                    <li><span class="ov-label">切除手术：</span>等待手术指征。</li>
                 </ul>
             </div>
         </div>
@@ -389,21 +388,21 @@
     <!-- 3. 核心战果看板 (Results - Metrics) -->
     <div class="section-card">
         <div class="section-title" style="flex-wrap: wrap;">
-            <span>核心指标追踪 <small style="color:var(--text-light); font-weight:400; font-size: 0.9rem;">(术后3周 vs 峰值)</small></span>
+            <span>核心指标追踪 <small style="color:var(--text-light); font-weight:400; font-size: 0.9rem;">(术后4周 vs 峰值)</small></span>
             <span style="font-size:0.85rem; color:var(--text-light); font-weight:400; margin-left: auto;">目标：肿瘤降期/手术转化</span>
         </div>
         <div class="highlight-grid">
             <div class="stat-box">
                 <div class="stat-label">PIVKA-II (异常凝血酶原)</div>
-                <div class="stat-val trend-down">45.2</div>
+                <div class="stat-val trend-down">45.92</div>
                 <div class="stat-label">↓99.5% (峰值: 9862)</div>
                 <div class="stat-label" style="color:var(--success)">接近正常 (目标: &lt;40)</div>
             </div>
             <div class="stat-box">
                 <div class="stat-label">AFP (甲胎蛋白)</div>
-                <div class="stat-val trend-down">22.53</div>
-                <div class="stat-label">↓94.8% (峰值: 437)</div>
-                <div class="stat-label" style="color:var(--success)">接近正常 (目标: &lt;7)</div>
+                <div class="stat-val trend-down">15.40</div>
+                <div class="stat-label">↓96.5% (峰值: 437)</div>
+                <div class="stat-label" style="color:var(--success)">已归正常 (目标: &lt;20)</div>
             </div>
             <div class="stat-box">
                 <div class="stat-label">AFP-L3% (异质体)</div>
@@ -413,15 +412,15 @@
             </div>
             <div class="stat-box">
                 <div class="stat-label">淋巴细胞绝对值</div>
-                <div class="stat-val trend-bad">0.19</div>
-                <div class="stat-label">极低 (最低0.13)</div>
-                <div class="stat-label" style="color:var(--warning)">回升趋势中↗ (目标: &gt;1.1)</div>
+                <div class="stat-val trend-bad">0.29</div>
+                <div class="stat-label">缓慢回升 (谷值: 0.13)</div>
+                <div class="stat-label" style="color:var(--warning)">仍处低位 (目标: &gt;1.1)</div>
             </div>
             <div class="stat-box">
-                <div class="stat-label">血小板 (PLT)</div>
-                <div class="stat-val trend-bad">106</div>
-                <div class="stat-label">偏低 (基线: 140)</div>
-                <div class="stat-label">监测出血风险</div>
+                <div class="stat-label">白细胞计数</div>
+                <div class="stat-val trend-bad">2.32</div>
+                <div class="stat-label">偏低 (参考: 3.5-9.5)</div>
+                <div class="stat-label">关注感染风险</div>
             </div>
         </div>
     </div>
@@ -460,9 +459,9 @@
                 <div class="canvas-holder">
                     <canvas id="pltChart"></canvas>
                 </div>
-                <div class="chart-legend warning">
-                    <strong>图注：红线 (75) - 减量警戒线</strong>
-                    <span>若血小板跌破 75，出血风险显著增加。需考虑暂停仑伐替尼或减量（12mg → 8mg）直至血小板回升。</span>
+                <div class="chart-legend success" style="border-left: 4px solid #10b981; background: #f0fdf4;">
+                    <strong>图注：血小板已回升</strong>
+                    <span>血小板数值回到正常参考范围内 (125-350)，出血风险显著降低，若血小板跌破 75，需考虑暂停仑伐替尼或减量</span>
                 </div>
             </div>
         </div>
@@ -519,10 +518,10 @@
             </div>
 
             <div class="img-box" style="background:#f0f9ff; border-color:#2563eb;">
-                <div class="img-date">2026.01.29 (治疗反应)</div>
+                <div class="img-date">2026.01.08 - 02.04 (治疗反应)</div>
                 <div class="img-desc">
-                    <strong>生物学反应：</strong> PIVKA-II 降至 45.2，AFP 降至 22.5。<br>
-                    <strong>推断：</strong> 肿瘤活性已被大幅抑制，处于坏死吸收期。
+                    <strong>生物学反应：</strong> PIVKA-II 降至 45.92，AFP 降至 15.40。<br>
+                    <strong>推断：</strong> 肿瘤活性已被大幅抑制，处于持续应答期。
                 </div>
             </div>
         </div>
@@ -533,10 +532,17 @@
         <div class="section-title">关键治疗时间轴</div>
         <div class="timeline">
             <div class="tl-item">
-                <div class="tl-date">2026.01.29 (术后3周)</div>
+                <div class="tl-date">2026.02.04 (术后4周)</div>
                 <div class="tl-content">
                     <span class="tl-tag" style="background:#d1fae5; color:#065f46">复查</span>
-                    <strong>PIVKA-II 降至 45.2 (接近正常)</strong>；AFP 降至 22.5。淋巴细胞触底微升(0.19)，腹泻好转。
+                    <strong>PIVKA-II 低位稳定 (45.9)；AFP 继续下降 (15.4)；血小板回升至正常 (131)</strong>；淋巴细胞继续缓慢回升 (0.29)。白细胞总数偏低。
+                </div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2026.01.29 (术后3周)</div>
+                <div class="tl-content">
+                    <span class="tl-tag" style="background:#f3f4f6; color:#374151">复查</span>
+                    PIVKA-II 降至 45.2 (接近正常)；AFP 降至 22.5。淋巴细胞触底微升(0.19)。血小板跌出基准范围(106)。
                 </div>
             </div>
             <div class="tl-item">
@@ -662,7 +668,8 @@
                         <th class="col-key">26.01.08<br><small>T0手术</small></th>
                         <th>26.01.12<br><small>术后1周</small></th>
                         <th>26.01.22<br><small>术后2周</small></th>
-                        <th class="col-key">26.01.29<br><small>术后3周</small></th>
+                        <th>26.01.29<br><small>术后3周</small></th>
+                        <th class="col-key">26.02.04<br><small>术后4周</small></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -676,10 +683,11 @@
                         <td class="abnormal">2239</td>
                         <td class="abnormal">124</td>
                         <td style="color:var(--success); font-weight:bold;">45.2</td>
+                        <td class="abnormal">45.9</td>
                     </tr>
                     <tr>
                         <td>AFP</td>
-                        <td>0-7</td>
+                        <td>&lt;20</td>
                         <td class="abnormal">233</td>
                         <td class="abnormal">398</td>
                         <td class="abnormal">437</td>
@@ -687,6 +695,7 @@
                         <td class="abnormal">134</td>
                         <td class="abnormal">49</td>
                         <td style="color:var(--success); font-weight:bold;">22.5</td>
+                        <td style="color:var(--success); font-weight:bold;">15.4</td>
                     </tr>
                     <tr>
                         <td>AFP-L3%</td>
@@ -697,6 +706,7 @@
                         <td>-</td>
                         <td class="abnormal">38.8%</td>
                         <td class="abnormal">32.4%</td>
+                        <td>-</td>
                         <td>-</td>
                     </tr>
                     <tr>
@@ -709,6 +719,7 @@
                         <td class="abnormal">0.20</td>
                         <td class="abnormal">0.13</td>
                         <td class="abnormal">0.19</td>
+                        <td class="abnormal">0.29</td>
                     </tr>
                     <tr>
                         <td>中性粒细胞#</td>
@@ -720,6 +731,7 @@
                         <td>2.69</td>
                         <td>2.09</td>
                         <td>1.93</td>
+                        <td class="abnormal">1.63</td>
                     </tr>
                     <tr>
                         <td>血小板 (PLT)</td>
@@ -731,6 +743,7 @@
                         <td>159</td>
                         <td>140</td>
                         <td class="abnormal">106</td>
+                        <td style="color:var(--success); font-weight:bold;">131</td>
                     </tr>
                     <tr>
                         <td>ALT (谷丙)</td>
@@ -742,6 +755,7 @@
                         <td>25</td>
                         <td>25</td>
                         <td>26</td>
+                        <td>31</td>
                     </tr>
                     <tr>
                         <td>TBil (总胆)</td>
@@ -753,6 +767,7 @@
                         <td>24.0</td>
                         <td>17.2</td>
                         <td>24.1</td>
+                        <td>14.9</td>
                     </tr>
                     <tr>
                         <td>ALB (白蛋白)</td>
@@ -764,6 +779,7 @@
                         <td>44.8</td>
                         <td>45.4</td>
                         <td>49.1</td>
+                        <td>48.0</td>
                     </tr>
                     <tr>
                         <td>INR (国际标准化比值)</td>
@@ -775,6 +791,7 @@
                         <td>1.07</td>
                         <td>1.11</td>
                         <td>1.12</td>
+                        <td>-</td>
                     </tr>
                 </tbody>
             </table>
@@ -784,7 +801,7 @@
 </div>
 
 <script>
-    const dates = ['25.09.08', '25.12.03', '25.12.26', '26.01.08', '26.01.12', '26.01.22', '26.01.29'];
+    const dates = ['25.09.08', '25.12.03', '25.12.26', '26.01.08', '26.01.12', '26.01.22', '26.01.29', '26.02.04'];
 
     // 1. 肿瘤标志物
     new Chart(document.getElementById('tumorChart'), {
@@ -794,7 +811,7 @@
             datasets: [
                 {
                     label: 'PIVKA-II (右轴-对数)',
-                    data: [null, null, 6400, 9862, 2239, 124, 45.2],
+                    data: [null, null, 6400, 9862, 2239, 124, 45.2, 45.9],
                     borderColor: '#ef4444',
                     backgroundColor: '#ef4444',
                     yAxisID: 'y1',
@@ -802,7 +819,7 @@
                 },
                 {
                     label: 'AFP (左轴1)',
-                    data: [233, 398, 437, 239, 134, 49, 22.5],
+                    data: [233, 398, 437, 239, 134, 49, 22.5, 15.4],
                     borderColor: '#2563eb',
                     backgroundColor: '#2563eb',
                     yAxisID: 'y',
@@ -810,7 +827,7 @@
                 },
                 {
                     label: 'AFP-L3% (左轴2-百分比)',
-                    data: [null, null, null, null, 38.8, 32.4, null],
+                    data: [null, null, null, null, 38.8, 32.4, null, null],
                     borderColor: '#8b5cf6',
                     backgroundColor: '#8b5cf6',
                     borderDash: [5, 5],
@@ -847,12 +864,12 @@
         data: {
             labels: dates,
             datasets: [
-                { label: 'ALT', data: [18, 15, 20, 15.5, 25, 25, 26], backgroundColor: '#3b82f6', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
-                { label: 'AST', data: [24, 19, 19.3, 35.8, 42, 30, 29], backgroundColor: '#93c5fd', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
-                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1], borderColor: '#8b5cf6', order: 0 },
+                { label: 'ALT', data: [18, 15, 20, 15.5, 25, 25, 26, 31.3], backgroundColor: '#3b82f6', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
+                { label: 'AST', data: [24, 19, 19.3, 35.8, 42, 30, 29, 30.2], backgroundColor: '#93c5fd', barPercentage: 0.9, categoryPercentage: 0.55, order: 1 },
+                { label: '总胆红素', type:'line', data: [21.7, 13.5, 14.9, 14.5, 24.0, 17.2, 24.1, 14.9], borderColor: '#8b5cf6', order: 0 },
                 // Added datasets
-                { label: '白蛋白', type:'line', data: [50.8, 52.5, 46.1, 44.2, 44.8, 45.4, 49.1], borderColor: '#10b981', tension: 0.3, order: 0 },
-                { label: 'INR (右轴)', type:'line', data: [null, 1.06, 1.05, null, 1.07, 1.11, 1.12], borderColor: '#f59e0b', tension: 0.3, yAxisID: 'y1', order: 0 }
+                { label: '白蛋白', type:'line', data: [50.8, 52.5, 46.1, 44.2, 44.8, 45.4, 49.1, 48.0], borderColor: '#10b981', tension: 0.3, order: 0 },
+                { label: 'INR (右轴)', type:'line', data: [null, 1.06, 1.05, null, 1.07, 1.11, 1.12, null], borderColor: '#f59e0b', tension: 0.3, yAxisID: 'y1', order: 0 }
             ]
         },
         options: {
@@ -873,7 +890,7 @@
             datasets: [
                 {
                     label: '淋巴细胞 (#)',
-                    data: [0.66, 0.45, 0.59, 0.27, 0.20, 0.13, 0.19],
+                    data: [0.66, 0.45, 0.59, 0.27, 0.20, 0.13, 0.19, 0.29],
                     borderColor: '#10b981',
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     fill: true,
@@ -881,7 +898,7 @@
                 },
                 {
                     label: '中性粒细胞 (#)',
-                    data: [1.68, 1.87, 1.37, 2.25, 2.69, 2.09, 1.93],
+                    data: [1.68, 1.87, 1.37, 2.25, 2.69, 2.09, 1.93, 1.63],
                     borderColor: '#f59e0b',
                     borderDash: [5,5],
                     tension: 0.3
@@ -915,7 +932,7 @@
             labels: dates,
             datasets: [{
                 label: '血小板 (PLT)',
-                data: [108, 137, 121, 139, 159, 140, 106],
+                data: [108, 137, 121, 139, 159, 140, 106, 131],
                 borderColor: '#ec4899',
                 backgroundColor: 'rgba(236, 72, 153, 0.1)',
                 fill: true
